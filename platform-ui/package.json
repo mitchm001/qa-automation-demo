@@ -1,0 +1,27 @@
+{
+  "name": "platform-ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Event sign-up app with a capacity limit and waitlist. Built as a system under test.",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "tsc -p tsconfig.json",
+    "build:client": "tsc -p tsconfig.client.json",
+    "start": "node build/server.js",
+    "dev": "npm run build:client && tsx watch src/server.ts",
+    "dev:client": "tsc -p tsconfig.client.json --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.client.json --noEmit"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

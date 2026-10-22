@@ -1,0 +1,14 @@
+{
+  // Type-checking for the test suite (Playwright compiles the tests itself when it runs them).
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "types": ["node"]
+  },
+  "include": ["tests", "playwright.config.ts"]
+}

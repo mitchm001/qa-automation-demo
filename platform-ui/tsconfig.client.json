@@ -1,0 +1,15 @@
+{
+  // Browser build: src/client/ -> public/js/ (served as plain ES modules, no bundler)
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "rootDir": "src/client",
+    "outDir": "public/js",
+    "strict": true,
+    "skipLibCheck": true,
+    "types": []
+  },
+  "include": ["src/client"]
+}

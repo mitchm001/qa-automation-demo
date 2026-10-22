@@ -1,0 +1,35 @@
+{
+  "name": "qa-automation-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A small event sign-up app plus a layered Playwright + TypeScript test suite.",
+  "type": "module",
+  "workspaces": [
+    "platform-ui"
+  ],
+  "scripts": {
+    "app": "npm run build -w platform-ui && npm start -w platform-ui",
+    "app:fresh": "npm run reset-data && npm run app",
+    "reset-data": "node -e \"require('fs').rmSync('platform-ui/data/app.db',{force:true}); console.log('Dev data cleared: the app will reload the seed data (21 of 25) on its next start.')\"",
+    "test": "playwright test",
+    "test:unit": "playwright test --project=unit",
+    "test:api": "playwright test --project=api",
+    "test:ui": "playwright test --project=ui",
+    "test:hybrid": "playwright test --project=hybrid",
+    "test:security": "playwright test --project=security",
+    "test:auth": "playwright test --project=auth",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit && npm run typecheck -w platform-ui"
+  },
+  "allowScripts": {
+    "sqlite3@6.0.1": true,
+    "esbuild@0.28.2": true
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.7"
+  }
+}

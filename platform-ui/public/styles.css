@@ -1,0 +1,124 @@
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --text: #1c2430;
+  --muted: #5b6575;
+  --border: #d8dde5;
+  --primary: #2453c7;
+  --primary-hover: #1c43a3;
+  --danger: #b42318;
+  --success-bg: #e7f6ec;
+  --success-text: #146c2e;
+  --error-bg: #fdecea;
+  --radius: 8px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); line-height: 1.5; }
+h1, h2 { margin: 0 0 0.5rem; line-height: 1.2; }
+h2 { font-size: 1.15rem; }
+
+.container { max-width: 1440px; margin: 0 auto; padding: 0 16px; }
+
+.page-header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 24px 0 20px; }
+.header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.header-actions { display: flex; align-items: center; gap: 8px; flex: none; flex-wrap: wrap; justify-content: flex-end; }
+.signed-in-as { color: var(--muted); font-size: 0.9rem; margin-right: 4px; }
+
+/* Login page */
+.login-page { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+.login-card { width: min(380px, 100%); }
+.login-card h1 { font-size: 1.5rem; }
+.login-card form { display: grid; gap: 12px; }
+.login-card .primary { width: 100%; }
+.demo-hint { margin: 16px 0 0; color: var(--muted); font-size: 0.9rem; }
+.demo-hint code { background: var(--bg); padding: 1px 4px; border-radius: 4px; }
+.info-wrap { position: relative; display: inline-flex; }
+.info-icon {
+  width: 24px; height: 24px; padding: 0; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface); color: var(--primary);
+  font: italic 700 14px/22px Georgia, 'Times New Roman', serif; cursor: help;
+}
+/* The hover message: hidden until the "i" is hovered or focused with the keyboard */
+.tooltip {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 10; width: 280px;
+  padding: 10px 12px; border-radius: 6px; background: var(--text); color: #fff;
+  font-size: 0.875rem; line-height: 1.4; box-shadow: 0 6px 20px rgb(0 0 0 / 0.2);
+  visibility: hidden; opacity: 0; transition: opacity 0.15s;
+}
+.info-icon:hover + .tooltip, .info-icon:focus-visible + .tooltip { visibility: visible; opacity: 1; }
+.seat-summary { margin: 0 0 8px; color: var(--muted); font-weight: 600; }
+progress { width: 100%; max-width: 420px; height: 12px; accent-color: var(--primary); }
+
+main { padding-top: 16px; padding-bottom: 48px; }
+
+/* Narrow screens: one column, stacked. Wide screens: Sign up | Confirmed | Waitlist side by side. */
+.layout { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 1100px) {
+  .layout { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 1.2fr); align-items: start; }
+}
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.card-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.hint { color: var(--muted); margin: 0 0 12px; }
+
+.status:empty { display: none; }
+.status { margin: 0 0 16px; padding: 10px 14px; border-radius: var(--radius); background: var(--success-bg); color: var(--success-text); }
+.status[data-kind='error'] { background: var(--error-bg); color: var(--danger); }
+
+.attendee-row { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin: 0 0 12px; display: grid; gap: 8px; }
+.attendee-row legend { font-weight: 600; padding: 0 4px; }
+.field { display: grid; gap: 2px; }
+.field label { font-size: 0.9rem; font-weight: 500; }
+.field input { font: inherit; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; }
+.field input[aria-invalid='true'] { border-color: var(--danger); }
+.field-error, .form-error { color: var(--danger); font-size: 0.875rem; }
+.field-error:empty, .form-error:empty { display: none; }
+.form-error { margin: 0 0 12px; }
+
+.form-actions, .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+
+button { font: inherit; cursor: pointer; border-radius: 6px; padding: 8px 14px; border: 1px solid transparent; }
+button:disabled { cursor: not-allowed; opacity: 0.5; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.primary { background: var(--primary); color: #fff; }
+.primary:hover:not(:disabled) { background: var(--primary-hover); }
+.secondary { background: var(--surface); color: var(--text); border-color: var(--border); }
+.danger { color: var(--danger); }
+.danger-fill { background: var(--danger); color: #fff; }
+.danger-fill:hover:not(:disabled) { background: #8f1c13; }
+.card-footer { display: flex; justify-content: flex-end; margin-top: 12px; }
+#confirm-dialog .dialog-title { align-items: flex-start; }
+#confirm-dialog .dialog-title h2 { font-size: 1.05rem; line-height: 1.4; }
+.link-button { background: none; border: none; padding: 0; color: var(--danger); text-decoration: underline; justify-self: start; white-space: nowrap; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.email-cell { overflow-wrap: break-word; }
+/* On phones there isn't room even for the part before the "@", so allow a break anywhere. */
+@media (max-width: 599px) { .email-cell { overflow-wrap: anywhere; } }
+th { color: var(--muted); font-weight: 600; font-size: 0.85rem; }
+
+dialog { border: none; border-radius: var(--radius); padding: 24px; width: min(520px, calc(100vw - 32px)); box-shadow: 0 12px 40px rgb(0 0 0 / 0.25); }
+dialog::backdrop { background: rgb(0 0 0 / 0.4); }
+.dialog-title { display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem; }
+.dialog-title h2 { margin: 0; }
+.caution-icon { width: 28px; height: 28px; flex: none; }
+.caution-icon circle:first-child { fill: var(--danger); }
+.caution-icon rect, .caution-icon circle:last-child { fill: #fff; }
+#seat-picker-description { white-space: pre-line; } /* lets \n in the text start a new line */
+.counter { font-weight: 600; }
+.about-dialog { width: min(640px, calc(100vw - 32px)); }
+.about-dialog h3 { font-size: 1rem; margin: 16px 0 8px; }
+.about-dialog ul { margin: 0 0 16px; padding-left: 20px; display: grid; gap: 6px; }
+.select-all { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-weight: 600; border-bottom: 2px solid var(--border); }
+.select-all input { width: 18px; height: 18px; }
+.checkbox-list { list-style: none; padding: 0; margin: 0 0 16px; max-height: 50vh; overflow-y: auto; }
+.checkbox-list li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.checkbox-list input { width: 18px; height: 18px; }
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+[hidden] { display: none !important; }

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Event Sign-up</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/js/main.js"></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <div class="container header-row">
+        <div>
+          <h1 id="event-name">Loading event…</h1>
+          <p id="seat-summary" class="seat-summary"></p>
+          <progress id="seat-progress" aria-labelledby="seat-summary" max="25" value="0"></progress>
+        </div>
+        <div class="header-actions">
+          <span id="signed-in-as" class="signed-in-as"></span>
+          <button type="button" id="about-project" class="secondary">About this project</button>
+          <button type="button" id="log-out" class="secondary">Log out</button>
+          <button type="button" id="reset-ui" class="secondary" aria-describedby="reset-ui-tip">Reset UI</button>
+          <span class="info-wrap">
+            <button type="button" id="reset-ui-info" class="info-icon" aria-label="About Reset UI" aria-describedby="reset-ui-tip">i</button>
+            <span id="reset-ui-tip" role="tooltip" class="tooltip">
+              Resets the Confirmed list and the waitlist to their original testing state: the 21 starting people, nobody waitlisted.
+              Anyone you've added or removed will be lost.
+            </span>
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <div class="layout">
+        <section class="card" aria-labelledby="signup-heading">
+          <h2 id="signup-heading">Sign up</h2>
+          <p class="hint">Add up to 5 people at a time. If there aren't enough seats, you'll choose who gets them. All fields are required.</p>
+
+          <form id="signup-form" novalidate>
+            <div id="attendee-rows"></div>
+            <p id="form-error" class="form-error" role="alert"></p>
+            <div class="form-actions">
+              <button type="button" id="add-person" class="secondary">Add another person</button>
+              <button type="submit" class="primary">Sign up</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card" aria-labelledby="confirmed-heading">
+          <h2 id="confirmed-heading">Confirmed</h2>
+          <table aria-labelledby="confirmed-heading">
+            <thead>
+              <tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Email</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr>
+            </thead>
+            <tbody id="confirmed-list"></tbody>
+          </table>
+          <div class="card-footer">
+            <button type="button" id="remove-all-confirmed" class="secondary danger" hidden>Remove all</button>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="waitlist-heading">
+          <div class="card-header">
+            <h2 id="waitlist-heading">Waitlist</h2>
+            <button type="button" id="clear-waitlist" class="secondary danger" hidden>Clear waitlist</button>
+          </div>
+          <p id="waitlist-empty" class="hint">Nobody is on the waitlist.</p>
+          <table id="waitlist-table" aria-labelledby="waitlist-heading" hidden>
+            <thead>
+              <tr><th scope="col">#</th><th scope="col">Name</th><th scope="col">Email</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr>
+            </thead>
+            <tbody id="waitlist-list"></tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="seat-picker" aria-labelledby="seat-picker-title" aria-describedby="seat-picker-description">
+      <div class="dialog-title">
+        <svg id="seat-picker-icon" class="caution-icon" viewBox="0 0 24 24" aria-hidden="true" hidden>
+          <circle cx="12" cy="12" r="11" />
+          <rect x="10.75" y="5.5" width="2.5" height="9" rx="1.25" />
+          <circle cx="12" cy="18" r="1.5" />
+        </svg>
+        <h2 id="seat-picker-title"></h2>
+      </div>
+      <p id="seat-picker-description"></p>
+      <p id="seat-picker-counter" class="counter" aria-live="polite"></p>
+      <label id="seat-picker-select-all-row" class="select-all" hidden>
+        <input type="checkbox" id="seat-picker-select-all" />
+        Select all
+      </label>
+      <ul id="seat-picker-list" class="checkbox-list"></ul>
+      <div class="dialog-actions">
+        <button type="button" id="seat-picker-cancel" class="secondary">Cancel</button>
+        <button type="button" id="seat-picker-discard" class="secondary"></button>
+        <button type="button" id="seat-picker-waitlist" class="primary"></button>
+      </div>
+    </dialog>
+
+    <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+      <h2 id="about-title">About this project</h2>
+      <p>
+        This event sign-up app is a small, real application built to be tested. It has a capacity limit, a waitlist,
+        duplicate checks and a login, which give an automated test suite meaningful rules to verify.
+      </p>
+      <h3>What it demonstrates</h3>
+      <ul>
+        <li><strong>Layered testing with Playwright + TypeScript:</strong> unit, API, UI, hybrid (API and UI together), security and auth suites, each in its own project.</li>
+        <li><strong>API testing:</strong> status codes, validation with boundary values, create/read/update/delete checks, business rules and response schemas.</li>
+        <li><strong>UI testing with Page Objects:</strong> real user flows, field errors, pop-ups, and role- and label-based locators.</li>
+        <li><strong>Race conditions:</strong> simultaneous sign-ups prove the event never goes over capacity, verified to fail when the server's locking is removed.</li>
+        <li><strong>Security checks:</strong> HTML and SQL-like input, ignored extra fields, security headers, error responses that leak nothing.</li>
+        <li><strong>Auth:</strong> login and logout, 401s on every protected request, secure session cookies, and one saved login reused across the suite.</li>
+        <li><strong>QA practice:</strong> written test cases with priorities and traceability, network-failure mocking, and real bugs logged with skipped tests that document the fix.</li>
+      </ul>
+      <div class="dialog-actions">
+        <button type="button" id="about-close" class="primary">Close</button>
+      </div>
+    </dialog>
+
+    <dialog id="confirm-dialog" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-message">
+      <div class="dialog-title">
+        <svg class="caution-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="11" />
+          <rect x="10.75" y="5.5" width="2.5" height="9" rx="1.25" />
+          <circle cx="12" cy="18" r="1.5" />
+        </svg>
+        <h2 id="confirm-dialog-title"></h2>
+      </div>
+      <p id="confirm-dialog-message"></p>
+      <div class="dialog-actions">
+        <button type="button" id="confirm-dialog-cancel" class="secondary">Cancel</button>
+        <button type="button" id="confirm-dialog-confirm" class="danger-fill"></button>
+      </div>
+    </dialog>
+  </body>
+</html>

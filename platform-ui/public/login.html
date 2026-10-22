@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Log in · Event Sign-up</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/js/login.js"></script>
+  </head>
+  <body>
+    <main class="login-page">
+      <section class="card login-card" aria-labelledby="login-heading">
+        <h1 id="login-heading">Log in</h1>
+        <p class="hint">Log in to manage the QA Automation Meetup sign-ups.</p>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" aria-required="true" aria-describedby="username-error" />
+            <span id="username-error" class="field-error" data-error-for="username"></span>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" aria-required="true" aria-describedby="password-error" />
+            <span id="password-error" class="field-error" data-error-for="password"></span>
+          </div>
+          <p id="login-error" class="form-error" role="alert"></p>
+          <button type="submit" class="primary">Log in</button>
+        </form>
+
+        <p class="demo-hint">Demo account: <code>demo</code> / <code>demo1234</code></p>
+      </section>
+    </main>
+  </body>
+</html>
